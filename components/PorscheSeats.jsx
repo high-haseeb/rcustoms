@@ -5,9 +5,17 @@ Command: npx gltfjsx@6.2.15 ./porscheSeats.gltf
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { useLayoutEffect } from 'react'
+import { applyProps } from '@react-three/fiber'
 
 export function PorscheSeats(props) {
+
   const { nodes, materials } = useGLTF('PorscheSeats/porscheSeats.gltf')
+  useLayoutEffect(() => {
+    Object.values(nodes).forEach((node) => node.isMesh && (node.receiveShadow = node.castShadow = true))
+
+  }, [nodes, materials])
+
   return (
     <group {...props} dispose={null}>
       <group position={[0, 0.452, 0]} rotation={[-Math.PI, 0, -Math.PI]} scale={1.546}>
