@@ -7,9 +7,9 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function PorscheSeats(props) {
-  const { nodes, materials } = useGLTF('./PorscheSeats/porscheSeats.gltf')
+  const { nodes, materials } = useGLTF('PorscheSeats/porscheSeats.gltf')
   return (
-    <group {...props} dispose={null} rotation={[0,  Math.PI, 0]}>
+    <group {...props} dispose={null}>
       <group position={[0, 0.452, 0]} rotation={[-Math.PI, 0, -Math.PI]} scale={1.546}>
         <mesh geometry={nodes['911_Body_101_Taillight'].geometry} material={materials.Bodycolor} scale={0.647} />
         <mesh geometry={nodes['911_Taillight_Side'].geometry} material={materials.Chrome} position={[-0.515, 0.069, -0.14]} rotation={[-1.399, 0.302, 1.095]} scale={[0.029, 0.012, 0.012]} />

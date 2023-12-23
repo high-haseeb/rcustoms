@@ -7,9 +7,9 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function SofaCobra(props) {
-  const { nodes, materials } = useGLTF('/SofaCobra/sofaCobra.gltf')
+  const { nodes, materials } = useGLTF('SofaCobra/sofaCobra.gltf')
   return (
-    <group {...props} dispose={null} rotation={[0,  Math.PI, 0]}>
+    <group {...props} dispose={null}>
       <group scale={2.228}>
         <mesh geometry={nodes.Blackbody.geometry} material={materials.Flat_Black} position={[0, 0.12, -0.141]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
         <mesh geometry={nodes.Body.geometry} material={materials.Paint_Main} position={[0, 0.214, -0.235]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
