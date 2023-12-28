@@ -17,19 +17,16 @@ import { PorscheSeats } from "@/components/PorscheSeats";
 import { SofaCobra } from "@/components/SofaCobra";
 import { ArmChairCobra } from "@/components/ArmChairCobra";
 import * as THREE from "three";
-import { LayerMaterial, Color, Depth } from "lamina";
-
 //TODO: make parts toggle menu
 //TODO: add a tyre loaading animaation
 //TODO: add background changer support
 //
 
 export default function Home() {
-  const [loadedPorsche, loadPorsche] = useState(true);
-  const [loadedArmChair, loadArmChair] = useState(false);
+  const [loadedPorsche, loadPorsche] = useState(false);
+  const [loadedArmChair, loadArmChair] = useState(true);
   const [loadedSofa, loadSofa] = useState(false);
 
-  const [degraded, degrade] = useState(false)
   const environments = [
     "forest",
     "warehouse",
@@ -88,10 +85,11 @@ export default function Home() {
           Cobra Sofa
         </button>
       </div>
-      <Canvas shadows camera={{ position: [5, 0, 15], fov: 30 }} className="">
-        <SpotLight position={[0, 5, 0]} angle={0.6} penumbra={1} castShadow intensity={3} shadow-bias={-0.0001} />
+      <Canvas  camera={{ position: [5, 0, 15], fov: 30 }} className="">
+        {/* <SpotLight position={[0, 5, 0]} angle={0.6} penumbra={1} castShadow intensity={3} shadow-bias={-0.0001} /> */}
         <ambientLight intensity={1} />
-        <PresentationControls rotation={[0, Math.PI, 0]}>
+        <PresentationControls rotation={[0, Math.PI, 0]} >
+        {/* <OrbitControls/> */}
           <Suspense fallback={<Html className="text-2xl  ">Loading...</Html>}>
             <Stage preset={'portrait'} environment={"warehouse"} >
               {loadedPorsche && <PorscheSeats scale={1.69} rotaion={[0, Math.PI, 0]} />}
@@ -100,14 +98,8 @@ export default function Home() {
             </Stage>
           </Suspense>
         </PresentationControls>
-        {/* <AccumulativeShadows position={[0, -1.16, 0]} frames={100} alphaTest={0.9} scale={10}> */}
-        {/*   <RandomizedLight amount={8} radius={10} ambient={5} position={[1, 5, -1]} /> */}
-        {/* </AccumulativeShadows> */}
         {/** PerfMon will detect performance issues */}
         {/* Renders contents "live" into a HDRI environment (scene.environment). */}
-        {/* <Environment frames={100} resolution={256}  blur={1}  > */}
-        {/*   <Lightformers /> */}
-        {/* </Environment> */}
         <CameraRig />
       </Canvas>
     </div>
@@ -126,11 +118,6 @@ function CameraRig({ v = new THREE.Vector3() }) {
 }
 function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
   const group = useRef();
-  // useFrame(
-  //   (state, delta) =>
-  //     (group.current.position.z += delta * 10) > 20 &&
-  //     (group.current.position.z = -60),
-  // );
   return (
 
     <>
@@ -153,14 +140,6 @@ function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
       <Float speed={5} floatIntensity={2} rotationIntensity={2}>
         <Lightformer form="rect" color="red" intensity={1} scale={10} position={[-15, 4, -18]} target={[0, 0, 0]} />
       </Float>
-      {/* Background */}
-      {/* <mesh scale={100}> */}
-      {/*   <sphereGeometry args={[1, 64, 64]} /> */}
-      {/*   <LayerMaterial side={THREE.BackSide}> */}
-      {/* <Color color="#444" alpha={1} mode="normal" /> */}
-      {/*     <Depth colorA="red" colorB="red" alpha={0.8} mode="normal" near={0} far={300} origin={[100, 100, 100]} /> */}
-      {/*   </LayerMaterial> */}
-      {/* </mesh> */}
     </>
   );
 }
