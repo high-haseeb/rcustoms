@@ -6,23 +6,37 @@ Command: npx gltfjsx@6.2.15 SofaCobra/SofaCobra.gltf
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useLayoutEffect } from 'react';
+import { applyProps } from '@react-three/fiber';
 import * as THREE from 'three'
 
 export function SofaCobra(props) {
   const { nodes, materials } = useGLTF('SofaCobra/SofaCobra.gltf')
+
+  const lampGlass = new THREE.MeshStandardMaterial({
+    color: 0xffffff,
+    // emissive: "#ff0000", // Emissive color for the backlight glow
+    // emissiveIntensity: 0.5, // Intensity of the emissive glow
+    transparent: true,
+    opacity: 0.4,
+    roughness: 0.1, // Adjust the roughness for reflections
+    metalness: 0.9, // Adjust the metalness for reflections
+    clearcoat: 1.0, // Clearcoat intensity
+    clearcoatRoughness: 0.1, // Clearcoat roughness
+    // transmission: 0.9, // Light transmission through the material
+    envMapIntensity: 3, // Adjust environment map intensity
+  });
   const redGlass = new THREE.MeshStandardMaterial({
     color: 0x880000,
     // emissive: "#ff0000", // Emissive color for the backlight glow
     // emissiveIntensity: 0.5, // Intensity of the emissive glow
     transparent: true,
-    opacity: 0.7,
+    opacity: 0.8,
     roughness: 0.1, // Adjust the roughness for reflections
     metalness: 0.9, // Adjust the metalness for reflections
     clearcoat: 1.0, // Clearcoat intensity
     clearcoatRoughness: 0.1, // Clearcoat roughness
-    transmission: 0.9, // Light transmission through the material
+    // transmission: 0.9, // Light transmission through the material
     envMapIntensity: 3, // Adjust environment map intensity
-    refractionRatio: 0.98,
   });
   useLayoutEffect(() => {
     Object.values(nodes).forEach(
@@ -84,8 +98,8 @@ export function SofaCobra(props) {
         <mesh geometry={nodes.Zderzak_lezka002.geometry} material={materials.Chrome} position={[-0.302, 0.107, -0.245]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
       </group>
       <group scale={2.228}>
-        <mesh geometry={nodes.Lampa_klosz001.geometry} material={materials['Glass Sofa HEadlights.001']} position={[-0.365, 0.214, -0.242]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
-        <mesh geometry={nodes.Lampa_klosz002.geometry} material={materials['Glass Sofa HEadlights.006']} position={[-0.365, 0.214, -0.242]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
+        <mesh geometry={nodes.Lampa_klosz001.geometry} material={lampGlass} position={[-0.365, 0.214, -0.242]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
+        <mesh geometry={nodes.Lampa_klosz002.geometry} material={lampGlass} position={[-0.365, 0.214, -0.242]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
       </group>
       <group scale={2.228}>
         {/* <mesh geometry={nodes.Migacz_klosz001.geometry} material={materials['Glass Orange.003']} position={[-0.365, 0.133, -0.213]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} /> */}

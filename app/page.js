@@ -24,8 +24,8 @@ import * as THREE from "three";
 
 export default function Home() {
   const [loadedPorsche, loadPorsche] = useState(false);
-  const [loadedArmChair, loadArmChair] = useState(true);
-  const [loadedSofa, loadSofa] = useState(false);
+  const [loadedArmChair, loadArmChair] = useState(false);
+  const [loadedSofa, loadSofa] = useState(true);
 
   const environments = [
     "forest",
@@ -88,8 +88,8 @@ export default function Home() {
       <Canvas  camera={{ position: [5, 0, 15], fov: 30 }} className="">
         {/* <SpotLight position={[0, 5, 0]} angle={0.6} penumbra={1} castShadow intensity={3} shadow-bias={-0.0001} /> */}
         <ambientLight intensity={1} />
-        <PresentationControls rotation={[0, Math.PI, 0]} >
-        {/* <OrbitControls/> */}
+        {/* <PresentationControls rotation={[0, Math.PI, 0]} > */}
+        <OrbitControls/>
           <Suspense fallback={<Html className="text-2xl  ">Loading...</Html>}>
             <Stage preset={'portrait'} environment={"warehouse"} >
               {loadedPorsche && <PorscheSeats scale={1.69} rotaion={[0, Math.PI, 0]} />}
@@ -97,10 +97,10 @@ export default function Home() {
               {loadedArmChair && <ArmChairCobra scale={1.69} rotaion={[0, Math.PI, 0]} />}
             </Stage>
           </Suspense>
-        </PresentationControls>
+        {/* </PresentationControls> */}
         {/** PerfMon will detect performance issues */}
         {/* Renders contents "live" into a HDRI environment (scene.environment). */}
-        <CameraRig />
+        {/* <CameraRig /> */}
       </Canvas>
     </div>
   );
