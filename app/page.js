@@ -18,8 +18,8 @@ import { ArmChairCobra } from "@/components/ArmChairCobra";
 import * as THREE from "three";
 
 export default function Home() {
-  const [loadedPorsche, loadPorsche] = useState(true);
-  const [loadedArmChair, loadArmChair] = useState(false);
+  const [loadedPorsche, loadPorsche] = useState(false);
+  const [loadedArmChair, loadArmChair] = useState(true);
   const [loadedSofa, loadSofa] = useState(false);
 
   const togglePorsche = () => {
@@ -37,6 +37,11 @@ export default function Home() {
     loadArmChair(false);
     loadSofa(true);
   };
+  const leatherColors = {
+    black: "#000000",
+    dark_brown: "#2A1711",
+    light_brown: "#5f361b"
+  }
   const colorsPorsche = {
     Jet_Black: "#201A1E",
     Carbon_Black: "#74828B",
@@ -56,16 +61,23 @@ export default function Home() {
     colorsPorsche.Agate_Grey,
   );
   const [currColorCobra, setColorCobra] = useState(colorsCobra.Candyapple_Red);
+  const [currLeather, setLeather] = useState(leatherColors.black);
+  const changeLeahterColor = (color) => setLeather(color)
   const changeColorCallbackPorsche = (color) => setColorPorsche(color);
   const changeColorCallbackCobra = (color) => setColorCobra(color);
   return (
     <div className="flex  w-screen h-screen">
       {(loadedSofa || loadedArmChair) && (
+        <>
         <ColorMenu
           colors={colorsCobra}
-          className="flex absolute top-0 left-0 w-screen  items-center justify-center text-xl z-50 font-bold "
+          className="flex absolute top-0 left-0   items-center justify-center text-xl z-50 font-bold "
           callback={changeColorCallbackCobra}
         />
+          <LeahterMenu colors={leatherColors}
+          className="flex absolute top-0 right-0  items-center justify-center text-xl z-50 font-bold "
+          callback={changeLeahterColor}/>
+        </>
       )}
       {loadedPorsche && (
         <ColorMenu
@@ -86,7 +98,7 @@ export default function Home() {
           onClick={toggleArmChair}
           className="  rounded-md bg-stone-300  p-4 m-4"
         >
-          Cobra ArmChair
+          Cobra Armchair
         </button>
 
         <button
@@ -117,10 +129,10 @@ export default function Home() {
                 />
               )}
               {loadedSofa && (
-                <SofaCobra scale={1.69} rotaion={[0, Math.PI, 0]} carColor={currColorCobra}/>
+                <SofaCobra scale={1.69} rotaion={[0, Math.PI, 0]} carColor={currColorCobra} leatherColor={currLeather}/>
               )}
               {loadedArmChair && (
-                <ArmChairCobra scale={1.69} rotaion={[0, Math.PI, 0]} carColor={currColorCobra} />
+                <ArmChairCobra scale={1.69} rotaion={[0, Math.PI, 0]} carColor={currColorCobra} leatherColor={currLeather}/>
               )}
             </Stage>
           </Suspense>
@@ -166,6 +178,27 @@ const ColorMenu = ({ colors, callback }) => {
             className={` w-16 h-16 m-4 rounded-[4rem] cursor-pointer`}
             style={{
               background: `linear-gradient(to bottom, ${colors[colorName]}, grey)`,
+            }}
+            onClick={() => {
+              callback(colors[colorName]);
+            }}
+            title={colorName}
+          ></div>
+        );
+      })}
+    </div>
+  );
+};
+
+const LeahterMenu = ({ colors, callback }) => {
+  return (
+    <div className="font-sans  text-4xl text-white flex-col  z-50 absolute top-0 right-0">
+      {Object.keys(colors).map((colorName, index) => {
+        return (
+          <div
+            className={` w-16 h-16 m-4 rounded-[4rem] cursor-pointer`}
+            style={{
+              background: `linear-gradient(to bottom, ${colors[colorName]}, black)`,
             }}
             onClick={() => {
               callback(colors[colorName]);

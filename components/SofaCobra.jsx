@@ -9,7 +9,7 @@ import { useLayoutEffect } from 'react';
 import { applyProps } from '@react-three/fiber';
 import * as THREE from 'three'
 
-export function SofaCobra({ carColor, ...props }) {
+export function SofaCobra({ carColor,leatherColor, ...props }) {
   const { nodes, materials } = useGLTF('SofaCobra/SofaCobra.gltf')
 
   const lampGlass = new THREE.MeshStandardMaterial({
@@ -57,6 +57,7 @@ export function SofaCobra({ carColor, ...props }) {
   newLeatherMaterial.roughness = 0.75
   Object.assign( materials.Leather_Sofa,newLeatherMaterial);
 
+  newLeatherMaterial.color.set(leatherColor)
   return (
     <group {...props} dispose={null}>
       <group scale={2.228}>

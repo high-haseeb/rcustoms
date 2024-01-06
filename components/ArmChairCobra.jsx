@@ -8,7 +8,7 @@ import { useGLTF } from "@react-three/drei";
 import { applyProps } from "@react-three/fiber";
 import * as THREE from "three";
 
-export function ArmChairCobra({ carColor, ...props }) {
+export function ArmChairCobra({ carColor,leatherColor, ...props }) {
   const { nodes, materials } = useGLTF("ArmchairCobra/ArmChairCobra.gltf");
   const redGlass = new THREE.MeshStandardMaterial({
     color: 0x880000,
@@ -34,6 +34,9 @@ export function ArmChairCobra({ carColor, ...props }) {
   const newLeatherMaterial = new THREE.MeshStandardMaterial();
   Object.assign( newLeatherMaterial,materials.Leather_Armchair);
   newLeatherMaterial.roughness = 0.95
+  // newLeatherMaterial.color.set('#5f361b')
+  newLeatherMaterial.color.set(leatherColor)
+  // newLeatherMaterial.color.set('#2A1711')
   // Object.assign( materials.Leather_Armchair,newLeatherMaterial);
 
 
