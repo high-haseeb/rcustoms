@@ -18,9 +18,9 @@ import { ArmChairCobra } from "@/components/ArmChairCobra";
 import * as THREE from "three";
 
 export default function Home() {
-  const [loadedPorsche, loadPorsche] = useState(false);
+  const [loadedPorsche, loadPorsche] = useState(true);
   const [loadedArmChair, loadArmChair] = useState(false);
-  const [loadedSofa, loadSofa] = useState(true);
+  const [loadedSofa, loadSofa] = useState(false);
 
   const togglePorsche = () => {
     loadArmChair(false);

@@ -15,13 +15,17 @@ export function PorscheSeats({ carColor, ...props }) {
   });
 
 
-  const newLeatherMaterial = new THREE.MeshStandardMaterial();
 
   useLayoutEffect(() => {
     // console.log(materials.Bodycolor.color)
   }, [nodes, materials]);
-  applyProps(materials.Bodycolor, { color: carColor });
 
+  applyProps(materials.Bodycolor, { color: carColor });
+  const tempBodyColor = new THREE.MeshStandardMaterial({color:carColor, roughness:0.1, metallness:1})
+  // Object.assign(tempBodyColor, materials.Bodycolor);
+  // tempBodyColor.color = 'red'
+
+  const newLeatherMaterial = new THREE.MeshStandardMaterial();
   Object.assign(newLeatherMaterial, materials.Leather_Black_Porshe);
   newLeatherMaterial.roughness = 0.75
 
@@ -66,11 +70,11 @@ export function PorscheSeats({ carColor, ...props }) {
         <group position={[-0.01, -0.292, 0.98]} scale={0.647}>
           <mesh
             geometry={nodes.Plane021.geometry}
-            material={materials.Carbon_Glossy}
+            material={tempBodyColor}
           />
           <mesh
             geometry={nodes.Plane021_1.geometry}
-            material={materials.Bodycolor}
+            material={tempBodyColor}
           />
         </group>
         <mesh
