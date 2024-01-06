@@ -9,7 +9,7 @@ import { useLayoutEffect } from 'react';
 import { applyProps } from '@react-three/fiber';
 import * as THREE from 'three'
 
-export function SofaCobra(props) {
+export function SofaCobra({ carColor, ...props }) {
   const { nodes, materials } = useGLTF('SofaCobra/SofaCobra.gltf')
 
   const lampGlass = new THREE.MeshStandardMaterial({
@@ -39,11 +39,22 @@ export function SofaCobra(props) {
     envMapIntensity: 3, // Adjust environment map intensity
   });
   useLayoutEffect(() => {
-    Object.values(nodes).forEach(
-      (node) => node.isMesh && (node.receiveShadow = node.castShadow = true),
-    );
+    // Object.values(nodes).forEach(
+      // (node) => node.isMesh && (node.receiveShadow = node.castShadow = true),
+    // );
 
   }, [nodes, materials]);
+
+  applyProps(materials.Paint_Main,{color:carColor})
+  if(carColor == "#FFFFFF"){
+    applyProps(materials.Stripes, {color:"#000000"})
+  }
+
+  const newLeatherMaterial = new THREE.MeshStandardMaterial();
+  Object.assign( newLeatherMaterial,materials.Leather_Sofa);
+  newLeatherMaterial.roughness = 0.75
+  Object.assign( materials.Leather_Sofa,newLeatherMaterial);
+
   return (
     <group {...props} dispose={null}>
       <group scale={2.228}>

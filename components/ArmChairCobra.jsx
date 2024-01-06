@@ -8,7 +8,7 @@ import { useGLTF } from "@react-three/drei";
 import { applyProps } from "@react-three/fiber";
 import * as THREE from "three";
 
-export function ArmChairCobra(props) {
+export function ArmChairCobra({ carColor, ...props }) {
   const { nodes, materials } = useGLTF("ArmchairCobra/ArmChairCobra.gltf");
   const redGlass = new THREE.MeshStandardMaterial({
     color: 0x880000,
@@ -25,11 +25,22 @@ export function ArmChairCobra(props) {
     refractionRatio: 0.98,
   });
   useLayoutEffect(() => {
-    Object.values(nodes).forEach(
-      (node) => node.isMesh && (node.receiveShadow = node.castShadow = true),
-    );
+    // Object.values(nodes).forEach(
+    //   (node) => node.isMesh && (node.receiveShadow = node.castShadow = true),
+    // );
     // applyProps(materials.Paint_Main, { color: '#002855'})
   }, [nodes, materials]);
+
+  const newLeatherMaterial = new THREE.MeshStandardMaterial();
+  Object.assign( newLeatherMaterial,materials.Leather_Armchair);
+  newLeatherMaterial.roughness = 0.95
+  // Object.assign( materials.Leather_Armchair,newLeatherMaterial);
+
+
+  applyProps(materials.Paint_Main,{color:carColor})
+  if(carColor == "#FFFFFF"){
+    applyProps(materials.Stripes, {color:"#000000"})
+  }
   return (
     <group {...props} dispose={null}>
       <group rotation={[-Math.PI, 0, -Math.PI]}>
@@ -135,22 +146,22 @@ export function ArmChairCobra(props) {
         />
         <mesh
           geometry={nodes.Siedzisko009.geometry}
-          material={materials.Leather_Armchair}
+          material={newLeatherMaterial}
           position={[0, 0.239, 0.105]}
         />
         <mesh
           geometry={nodes.Siedzisko010.geometry}
-          material={materials.Leather_Armchair}
+          material={newLeatherMaterial}
           position={[0, 0.239, 0.105]}
         />
         <mesh
           geometry={nodes.Siedzisko011.geometry}
-          material={materials.Leather_Armchair}
+          material={newLeatherMaterial}
           position={[0, 0.239, 0.105]}
         />
         <mesh
           geometry={nodes.Siedzisko_bok005.geometry}
-          material={materials.Leather_Armchair}
+          material={newLeatherMaterial}
           position={[0, 0.239, 0.105]}
         />
         <mesh

@@ -18,9 +18,9 @@ import { ArmChairCobra } from "@/components/ArmChairCobra";
 import * as THREE from "three";
 
 export default function Home() {
-  const [loadedPorsche, loadPorsche] = useState(true);
+  const [loadedPorsche, loadPorsche] = useState(false);
   const [loadedArmChair, loadArmChair] = useState(false);
-  const [loadedSofa, loadSofa] = useState(false);
+  const [loadedSofa, loadSofa] = useState(true);
 
   const togglePorsche = () => {
     loadArmChair(false);
@@ -37,24 +37,43 @@ export default function Home() {
     loadArmChair(false);
     loadSofa(true);
   };
-  const colors = {
+  const colorsPorsche = {
     Jet_Black: "#201A1E",
     Carbon_Black: "#74828B",
-    Guards_Red: "#9D0620",
-    // Guards_Red: "#510102",
+    Guards_Red: "#FA2223",
     Irish_Green: "#029220",
     Agate_Grey: "#AAB1B9",
-    Metallic_Blue: "#385D89",
+    Metallic_Blue: "#0387D9",
   };
-  const [currColor, setColor] = useState(colors.Agate_Grey);
-  const changeColorCallback = (color) => setColor(color)
+  const colorsCobra = {
+    Raven_black: "#000000",
+    Acapulco_Blue: "#004080",
+    Wimbledon_White: "#FFFFFF",
+    Highland_Green: "#214021",
+    Candyapple_Red: "#B30000",
+  };
+  const [currColorPorsche, setColorPorsche] = useState(
+    colorsPorsche.Agate_Grey,
+  );
+  const [currColorCobra, setColorCobra] = useState(colorsCobra.Candyapple_Red);
+  const changeColorCallbackPorsche = (color) => setColorPorsche(color);
+  const changeColorCallbackCobra = (color) => setColorCobra(color);
   return (
     <div className="flex  w-screen h-screen">
-      <ColorMenu
-        colors={colors}
-        className="flex absolute top-0 left-0 w-screen  items-center justify-center text-xl z-50 font-bold "
-        callback={changeColorCallback}
-      />
+      {(loadedSofa || loadedArmChair) && (
+        <ColorMenu
+          colors={colorsCobra}
+          className="flex absolute top-0 left-0 w-screen  items-center justify-center text-xl z-50 font-bold "
+          callback={changeColorCallbackCobra}
+        />
+      )}
+      {loadedPorsche && (
+        <ColorMenu
+          colors={colorsPorsche}
+          className="flex absolute top-0 left-0 w-screen  items-center justify-center text-xl z-50 font-bold "
+          callback={changeColorCallbackPorsche}
+        />
+      )}
       <div className="flex absolute top-0 left-0 w-screen  items-center justify-center text-xl z-40 font-bold ">
         <button
           onClick={togglePorsche}
@@ -78,28 +97,33 @@ export default function Home() {
         </button>
       </div>
       <Canvas camera={{ position: [5, 0, 15], fov: 30 }} className="">
-        <directionalLight
-          position={[0, 5, -3]}
-          intensity={0.5}
-        />
+        <directionalLight position={[0, 5, -3]} intensity={0.5} />
         {/* <ambientLight intensity={1} /> */}
         {/* <OrbitControls /> */}
-        <PresentationControls rotation={[0, Math.PI , 0]}>
-        <Suspense fallback={<Html className="text-2xl  font-bold font-sans text-white">Loading...</Html>}>
-          <Stage preset={"portrait"} environment={"warehouse"}>
-            {loadedPorsche && (
-              <PorscheSeats
-                scale={1.69}
-                rotaion={[0, Math.PI, 0]}
-                carColor={currColor}
-              />
-            )}
-            {loadedSofa && <SofaCobra scale={1.69} rotaion={[0, Math.PI, 0]} />}
-            {loadedArmChair && (
-              <ArmChairCobra scale={1.69} rotaion={[0, Math.PI, 0]} />
-            )}
-          </Stage>
-        </Suspense>
+        <PresentationControls rotation={[0, Math.PI, 0]}>
+          <Suspense
+            fallback={
+              <Html className="text-2xl  font-bold font-sans text-white">
+                Loading...
+              </Html>
+            }
+          >
+            <Stage preset={"portrait"} environment={"warehouse"}>
+              {loadedPorsche && (
+                <PorscheSeats
+                  scale={1.69}
+                  rotaion={[0, Math.PI, 0]}
+                  carColor={currColorPorsche}
+                />
+              )}
+              {loadedSofa && (
+                <SofaCobra scale={1.69} rotaion={[0, Math.PI, 0]} carColor={currColorCobra}/>
+              )}
+              {loadedArmChair && (
+                <ArmChairCobra scale={1.69} rotaion={[0, Math.PI, 0]} carColor={currColorCobra} />
+              )}
+            </Stage>
+          </Suspense>
         </PresentationControls>
 
         <mesh scale={100}>
@@ -107,7 +131,7 @@ export default function Home() {
           <LayerMaterial side={THREE.BackSide}>
             <Color color="#444" alpha={1} mode="normal" />
             <Depth
-              colorA={currColor}
+              colorA={loadedPorsche ? currColorPorsche : currColorCobra}
               colorB="black"
               alpha={0.5}
               mode="normal"
@@ -133,7 +157,7 @@ function CameraRig({ v = new THREE.Vector3() }) {
     state.camera.lookAt(0, 0, 0);
   });
 }
-const ColorMenu = ({ colors , callback}) => {
+const ColorMenu = ({ colors, callback }) => {
   return (
     <div className="font-sans  text-4xl text-white flex-col  z-50 absolute top-0 left-0">
       {Object.keys(colors).map((colorName, index) => {
@@ -144,7 +168,7 @@ const ColorMenu = ({ colors , callback}) => {
               background: `linear-gradient(to bottom, ${colors[colorName]}, grey)`,
             }}
             onClick={() => {
-              callback(colors[colorName])
+              callback(colors[colorName]);
             }}
             title={colorName}
           ></div>

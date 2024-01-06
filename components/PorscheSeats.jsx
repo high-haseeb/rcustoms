@@ -16,6 +16,7 @@ export function PorscheSeats({ carColor, ...props }) {
 
 
   const newLeatherMaterial = new THREE.MeshStandardMaterial();
+
   useLayoutEffect(() => {
     // console.log(materials.Bodycolor.color)
   }, [nodes, materials]);
