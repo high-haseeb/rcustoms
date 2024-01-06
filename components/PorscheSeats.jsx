@@ -28,6 +28,11 @@ export function PorscheSeats({ carColor, ...props }) {
   const newLeatherMaterial = new THREE.MeshStandardMaterial();
   Object.assign(newLeatherMaterial, materials.Leather_Black_Porshe);
   newLeatherMaterial.roughness = 0.75
+// applyProps(materials.Body_dark,{metallness: 0, roughness:1})
+  const bottomMaterial = new THREE.MeshStandardMaterial()
+
+  Object.assign(bottomMaterial, materials.Body_dark);
+  bottomMaterial.roughness=1
 
   return (
     <group {...props} dispose={null}>
@@ -85,7 +90,8 @@ export function PorscheSeats({ carColor, ...props }) {
         />
         <mesh
           geometry={nodes.Kanapa_podstawa.geometry}
-          material={materials.Body_dark}
+          material={bottomMaterial}
+          // material={materials.Body_dark}
           position={[-0.01, 0.082, 0.979]}
           scale={0.647}
         />
