@@ -48,6 +48,8 @@ export function SofaCobra({ carColor, ...props }) {
   applyProps(materials.Paint_Main,{color:carColor})
   if(carColor == "#FFFFFF"){
     applyProps(materials.Stripes, {color:"#000000"})
+  }else{
+    applyProps(materials.Stripes, {color:"#ffffff"})
   }
 
   const newLeatherMaterial = new THREE.MeshStandardMaterial();
