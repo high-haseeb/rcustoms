@@ -876,4 +876,4 @@ export function PorscheSeats({ carColor, ...props }) {
   );
 }
 
-useGLTF.preload("/PorscheSeats.gltf");
+useGLTF.preload("PorscheSeats/PorscheSeats.gltf");

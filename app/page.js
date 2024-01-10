@@ -16,6 +16,7 @@ import { PorscheSeats } from "@/components/PorscheSeats";
 import { SofaCobra } from "@/components/SofaCobra";
 import { ArmChairCobra } from "@/components/ArmChairCobra";
 import * as THREE from "three";
+import { PorscheSofa } from "@/components/PorscheSofa";
 
 export default function Home() {
   const [loadedPorsche, loadPorsche] = useState(true);
@@ -58,7 +59,7 @@ export default function Home() {
     Candyapple_Red: "#B30000",
   };
   const [currColorPorsche, setColorPorsche] = useState(
-    colorsPorsche.Agate_Grey,
+    colorsPorsche.Guards_Red,
   );
   const [currColorCobra, setColorCobra] = useState(colorsCobra.Candyapple_Red);
   const [currLeather, setLeather] = useState(leatherColors.black);
@@ -110,8 +111,6 @@ export default function Home() {
       </div>
       <Canvas camera={{ position: [5, 0, 15], fov: 30 }} className="">
         <directionalLight position={[0, 5, -3]} intensity={0.5} />
-        {/* <ambientLight intensity={1} /> */}
-        {/* <OrbitControls /> */}
         <PresentationControls rotation={[0, Math.PI, 0]}>
           <Suspense
             fallback={
@@ -122,11 +121,7 @@ export default function Home() {
           >
             <Stage preset={"portrait"} environment={"warehouse"}>
               {loadedPorsche && (
-                <PorscheSeats
-                  scale={1.69}
-                  rotaion={[0, Math.PI, 0]}
-                  carColor={currColorPorsche}
-                />
+                <PorscheSofa scale={1.69} rotation={[0, Math.PI, 0]} carColor={currColorPorsche}/>
               )}
               {loadedSofa && (
                 <SofaCobra scale={1.69} rotaion={[0, Math.PI, 0]} carColor={currColorCobra} leatherColor={currLeather}/>

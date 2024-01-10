@@ -238,4 +238,4 @@ export function ArmChairCobra({ carColor,leatherColor, ...props }) {
   );
 }
 
-useGLTF.preload("/ArmChairCobra.gltf");
+useGLTF.preload("ArmChairCobra/ArmChairCobra.gltf");

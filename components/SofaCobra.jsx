@@ -123,4 +123,4 @@ export function SofaCobra({ carColor,leatherColor, ...props }) {
   )
 }
 
-useGLTF.preload('/SofaCobra.gltf')
+useGLTF.preload('SofaCobra/SofaCobra.gltf')
