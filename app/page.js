@@ -31,6 +31,7 @@ const colors = {
     Wimbledon_White: "#FFFFFF",
     Highland_Green: "#214021",
     Candyapple_Red: "#B30000",
+    Aluminium: "#848789"
   },
   ArmChair: {
     Raven_black: "#000000",
@@ -87,7 +88,7 @@ export default function Home() {
   return (
     <div className="flex w-screen h-screen">
       <div className="flex absolute top-0 left-0 w-screen items-center justify-center text-xl font-bold z-50">
-        <GenerateButtons toggleSeat={(model) => setLoadedModel(model)} />
+        <GenerateButtons toggleSeat={(model) => {setLoadedModel(model)}}/>
       </div>
       <ColorMenu
         colors={loadedModel.colors}
