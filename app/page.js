@@ -8,190 +8,8 @@ import { SofaCobra } from "@/components/SofaCobra";
 import { ArmChairCobra } from "@/components/ArmChairCobra";
 import { PorscheSofa } from "@/components/PorscheSofa";
 import * as THREE from "three";
-import { CobraTable } from "@/components/CobraTable";
-import { PorscheTable } from "@/components/PorscheTable";
-//
-// export default function Home() {
-//   const [loadedPorsche, loadPorsche] = useState(false);
-//   const [loadedArmChair, loadArmChair] = useState(false);
-//   const [loadedSofa, loadSofa] = useState(false);
-//   const [loadedPorscheTable, loadPorscheTable] = useState(true);
-//   const [loadedCobraTable, loadCobraTable] = useState(false);
-//
-//   const togglePorsche = () => {
-//     loadArmChair(false);
-//     loadSofa(false);
-//     loadPorsche(true);
-//   };
-//   const toggleArmChair = () => {
-//     loadPorsche(false);
-//     loadSofa(false);
-//     loadArmChair(true);
-//   };
-//   const toggleSofa = () => {
-//     loadPorsche(false);
-//     loadArmChair(false);
-//     loadSofa(true);
-//   };
-//   const leatherColors = {
-//     black: "#000000",
-//     dark_brown: "#2A1711",
-//     light_brown: "#5f361b",
-//   };
-//   const colorsPorsche = {
-//     Jet_Black: "#201A1E",
-//     Carbon_Black: "#74828B",
-//     Guards_Red: "#FA2223",
-//     Irish_Green: "#029220",
-//     Agate_Grey: "#AAB1B9",
-//     Metallic_Blue: "#0387D9",
-//   };
-//   const colorsCobraSofa = {
-//     Raven_black: "#000000",
-//     Acapulco_Blue: "#004080",
-//     Wimbledon_White: "#FFFFFF",
-//     Highland_Green: "#214021",
-//     Candyapple_Red: "#B30000",
-//   };
-//   const colorsCobraArmChair = {
-//     Raven_black: "#000000",
-//     Acapulco_Blue: "#004080",
-//     Wimbledon_White: "#FFFFFF",
-//     Highland_Green: "#214021",
-//     Candyapple_Red: "#B30000",
-//   };
-//   const [currColorPorsche, setColorPorsche] = useState(
-//     colorsPorsche.Guards_Red,
-//   );
-//   const [currColorCobraArmChair, setColorCobraArmChair] = useState(
-//     colorsCobraArmChair.Candyapple_Red,
-//   );
-//   const [currColorCobraSofa, setColorCobraSofa] = useState(
-//     colorsCobraSofa.Candyapple_Red,
-//   );
-//   const [currLeather, setLeather] = useState(leatherColors.black);
-//   const changeLeahterColor = (color) => setLeather(color);
-//   const changeColorCallbackPorsche = (color) => setColorPorsche(color);
-//   const changeColorCallbackCobraArmChair = (color) =>
-//     setColorCobraArmChair(color);
-//   const changeColorCallbackCobraSofa = (color) => setColorCobraSofa(color);
-//   return (
-//     <div className="flex  w-screen h-screen">
-//       {loadedSofa && (
-//         <>
-//           <ColorMenu
-//             colors={colorsCobraSofa}
-//             className="flex absolute top-0 left-0   items-center justify-center text-xl z-50 font-bold "
-//             callback={changeColorCallbackCobraSofa}
-//           />
-//           <LeahterMenu
-//             colors={leatherColors}
-//             className="flex absolute top-0 right-0  items-center justify-center text-xl z-50 font-bold "
-//             callback={changeLeahterColor}
-//           />
-//         </>
-//       )}
-//       {loadedArmChair && (
-//         <>
-//           <ColorMenu
-//             colors={colorsCobraArmChair}
-//             className="flex absolute top-0 left-0   items-center justify-center text-xl z-50 font-bold "
-//             callback={changeColorCallbackCobraArmChair}
-//           />
-//           <LeahterMenu
-//             colors={leatherColors}
-//             className="flex absolute top-0 right-0  items-center justify-center text-xl z-50 font-bold "
-//             callback={changeLeahterColor}
-//           />
-//         </>
-//       )}
-//       {loadedPorsche && (
-//         <ColorMenu
-//           colors={colorsPorsche}
-//           className="flex absolute top-0 left-0 w-screen  items-center justify-center text-xl z-50 font-bold "
-//           callback={changeColorCallbackPorsche}
-//         />
-//       )}
-//       <div className="flex absolute top-0 left-0 w-screen  items-center justify-center text-xl z-40 font-bold ">
-//         <button
-//           onClick={togglePorsche}
-//           className="  rounded-md bg-stone-300  p-4 m-4 backdrop-blur-lg"
-//         >
-//           Porsche Seats
-//         </button>
-//
-//         <button
-//           onClick={toggleArmChair}
-//           className="  rounded-md bg-stone-300  p-4 m-4"
-//         >
-//           Cobra Armchair
-//         </button>
-//
-//         <button
-//           onClick={toggleSofa}
-//           className="  rounded-md bg-stone-300  p-4 m-4"
-//         >
-//           Cobra Sofa
-//         </button>
-//       </div>
-//       <Canvas camera={{ position: [5, 0, 15], fov: 30 }} className="">
-//         <directionalLight position={[0, 5, -3]} intensity={0.5} />
-//         <PresentationControls rotation={[0, Math.PI, 0]}>
-//           <Suspense
-//             fallback={
-//               <Html className="text-2xl  font-bold font-sans text-white">
-//                 Loading...
-//               </Html>
-//             }
-//           >
-//             <Stage preset={"portrait"} environment={"warehouse"}>
-//               {loadedPorsche && (
-//                 <PorscheSofa
-//                   scale={1.69}
-//                   rotation={[0, Math.PI, 0]}
-//                   carColor={currColorPorsche}
-//                 />
-//               )}
-//               {loadedSofa && (
-//                 <SofaCobra
-//                   scale={1.69}
-//                   rotaion={[0, Math.PI, 0]}
-//                   carColor={currColorCobraSofa}
-//                   leatherColor={currLeather}
-//                 />
-//               )}
-//               {loadedArmChair && (
-//                 <ArmChairCobra
-//                   scale={1.69}
-//                   rotaion={[0, Math.PI, 0]}
-//                   carColor={currColorCobraArmChair}
-//                   leatherColor={currLeather}
-//                 />
-//               )}
-//             </Stage>
-//           </Suspense>
-//         </PresentationControls>
-//
-//         <mesh scale={100}>
-//           <sphereGeometry args={[1, 64, 64]} />
-//           <LayerMaterial side={THREE.BackSide}>
-//             <Color color="#444" alpha={1} mode="normal" />
-//             <Depth
-//               colorA={loadedPorsche ? currColorPorsche : loadedArmChair ? currColorCobraArmChair : currColorCobraSofa}
-//               colorB="black"
-//               alpha={0.5}
-//               mode="normal"
-//               near={0}
-//               far={300}
-//               origin={[100, 100, 100]}
-//             />
-//           </LayerMaterial>
-//         </mesh>
-//         <CameraRig />
-//       </Canvas>
-//     </div>
-//   );
-// }
+import { TableCobra } from "@/components/TableCobra";
+import { TablePorsche } from "@/components/TablePorsche";
 
 const colors = {
   Leather: {
@@ -223,8 +41,8 @@ const colors = {
   },
   Table: {
     Wimbledon_White: "#FFFFFF",
-    Highland_Green: "#214021",
-    Candyapple_Red: "#B30000",
+    Silver: "silver",
+    Gray: "gray",
   },
 };
 
@@ -253,8 +71,8 @@ const Models = {
 };
 
 export default function Home() {
-  const [loadedModel, setLoadedModel] = useState(Models.Sofa);
-  const [currColor, setColor] = useState(colors.Sofa.Raven_black);
+  const [loadedModel, setLoadedModel] = useState(Models.Porsche);
+  const [currColor, setColor] = useState(colors.Porsche.Guards_Red);
   const [currLeather, setLeather] = useState(colors.Leather.black);
 
   const changeLeatherColor = (color) => {
@@ -263,9 +81,9 @@ export default function Home() {
 
   const props = {
     scale: 1.69,
-    rotation: [0, 0, 0],
+    position: [0, 0, 0],
   };
-
+  const ref = useRef();
   return (
     <div className="flex w-screen h-screen">
       <div className="flex absolute top-0 left-0 w-screen items-center justify-center text-xl font-bold z-50">
@@ -276,43 +94,32 @@ export default function Home() {
         className="flex absolute top-0 left-0 items-center justify-center text-xl  font-bold"
         callback={(color) => setColor(color)}
       />
+      {loadedModel.componentName === Models.Sofa.componentName || loadedModel.componentName === Models.ArmChair.componentName ? 
       <LeatherMenu
         colors={colors.Leather}
         className="flex absolute top-0 right-0 items-center justify-center text-xl font-bold"
         callback={changeLeatherColor}
-      />
+      />: <></>}
       <Canvas camera={{ position: [5, 0, 15], fov: 30 }}>
         <directionalLight position={[0, 5, -3]} intensity={0.5} />
         <PresentationControls rotation={[0, Math.PI, 0]}>
-          <Suspense fallback={<Loading />}>
-            <Stage preset={"portrait"} environment={"warehouse"}>
+        <Suspense fallback={<Loading />}>
+          <Stage preset={"portrait"} environment={"warehouse"}>
               {loadedModel.componentName === Models.Sofa.componentName ? (
-                <SofaCobra
-                  key="sofa"
-                  {...props}
-                  carColor={currColor}
-                  leatherColor={currLeather}
-                />
+                <SofaCobra key="sofa" {...props} carColor={currColor} leatherColor={currLeather}/>
               ) : loadedModel.componentName === Models.Porsche.componentName ? (
-                <PorscheSofa key="porsche" carColor={currColor} />
-              ) : loadedModel.componentName ===
-                Models.ArmChair.componentName ? (
-                <ArmChairCobra
-                  key="armchair"
-                  {...props}
-                  carColor={currColor}
-                  leatherColor={currLeather}
-                />
-              ) : loadedModel.componentName ===
-                Models.PorscheTable.componentName ? (
-                <PorscheTable key="porscheTable" {...props} />
-              ) : loadedModel.componentName ===
-                Models.CobraTable.componentName ? (
-                <CobraTable key="cobraTable" {...props} />
+                <PorscheSofa key="porsche" {...props} carColor={currColor} />
+              ) : loadedModel.componentName === Models.ArmChair.componentName ? (
+                <ArmChairCobra key="armchair" {...props} carColor={currColor} leatherColor={currLeather}/>
+              ) : loadedModel.componentName === Models.PorscheTable.componentName ? (
+                <TablePorsche {...props} />
+              ) : loadedModel.componentName === Models.CobraTable.componentName ? (
+                <TableCobra {...props} color={currColor}/>
               ) : null}
-            </Stage>
-          </Suspense>
+          </Stage>
+        </Suspense>
         </PresentationControls>
+        {/* <OrbitControls /> */}
         <BackGround color={currColor} />
         <CameraRig />
       </Canvas>
@@ -349,7 +156,7 @@ const GenerateButtons = ({ toggleSeat }) => {
 
   return modelButtons.map(({ model, label }) => (
     <button
-      // key={model}
+      key={label}
       onClick={() => toggleSeat(model)}
       className="rounded-md bg-stone-300 p-4 m-4 backdrop-blur-lg"
     >
@@ -379,6 +186,7 @@ const ColorMenu = ({ colors, callback }) => {
       {Object.keys(colors).map((colorName, index) => {
         return (
           <div
+            key={index}
             className={` w-16 h-16 m-4 rounded-[4rem] cursor-pointer`}
             style={{
               background: `linear-gradient(to bottom, ${colors[colorName]}, grey)`,
@@ -400,6 +208,7 @@ const LeatherMenu = ({ colors, callback }) => {
       {Object.keys(colors).map((colorName, index) => {
         return (
           <div
+            key={index}
             className={` w-16 h-16 m-4 rounded-[4rem] cursor-pointer`}
             style={{
               background: `linear-gradient(to bottom, ${colors[colorName]}, black)`,
@@ -414,4 +223,3 @@ const LeatherMenu = ({ colors, callback }) => {
     </div>
   );
 };
-

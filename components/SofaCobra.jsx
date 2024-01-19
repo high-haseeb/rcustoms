@@ -12,8 +12,6 @@ export function SofaCobra({ carColor,leatherColor, ...props }) {
     opacity: 0.4,
     roughness: 0.1, // Adjust the roughness for reflections
     metalness: 0.9, // Adjust the metalness for reflections
-    clearcoat: 1.0, // Clearcoat intensity
-    clearcoatRoughness: 0.1, // Clearcoat roughness
     envMapIntensity: 3, // Adjust environment map intensity
   });
   const redGlass = new THREE.MeshStandardMaterial({
