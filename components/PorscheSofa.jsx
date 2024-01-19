@@ -1,4 +1,4 @@
-
+'use client'
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { applyProps } from '@react-three/fiber';
@@ -17,6 +17,11 @@ export function PorscheSofa({carColor, ...props }) {
   const newLeatherMaterial1 = new THREE.MeshStandardMaterial();
   Object.assign(newLeatherMaterial1, materials.Leather);
   newLeatherMaterial1.roughness = 0.75
+  const bottomMaterial = new THREE.MeshStandardMaterial()
+
+  Object.assign(bottomMaterial, materials['Black Glossy']);
+  bottomMaterial.roughness=1
+
   return (
     <group {...props} dispose={null}>
       <group position={[13.039, 0.937, 3.016]} rotation={[0, -0.422, 0]}>
@@ -45,7 +50,7 @@ export function PorscheSofa({carColor, ...props }) {
           {/* <mesh geometry={nodes.Plane020_1.geometry} material={materials['Black Glossy']} /> */}
         </group>
         <mesh geometry={nodes.Grille_M_Blackbody.geometry} material={materials.Flat_Black} position={[0, 0.024, -0.683]} />
-        <mesh geometry={nodes.Kanapa_podstawa.geometry} material={materials['Black Glossy']} position={[0, 0, 1.424]} />
+        <mesh geometry={nodes.Kanapa_podstawa.geometry} material={bottomMaterial} position={[0, 0, 1.424]} />
         <mesh geometry={nodes.Listwa_p.geometry} material={materials['Black Glossy']} position={[0, 0, 1.424]} />
         <mesh geometry={nodes.Listwa_p_chrom.geometry} material={materials['Black Glossy']} position={[0, 0, 1.424]} />
         <group position={[0, -0.325, 0.72]}>
@@ -396,4 +401,4 @@ export function PorscheSofa({carColor, ...props }) {
   )
 }
 
-useGLTF.preload('PorscheSofa/PorscheSofa.gltf')
+useGLTF.preload('/PorscheSofa/PorscheSofa.gltf')
