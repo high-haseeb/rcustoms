@@ -10,6 +10,7 @@ import { PorscheSofa } from "@/components/PorscheSofa";
 import * as THREE from "three";
 import { TableCobra } from "@/components/TableCobra";
 import { TablePorsche } from "@/components/TablePorsche";
+import { SofaNew } from "@/components/SofaCobranew";
 
 const colors = {
   Leather: {
@@ -31,7 +32,7 @@ const colors = {
     Wimbledon_White: "#FFFFFF",
     Highland_Green: "#214021",
     Candyapple_Red: "#B30000",
-    Aluminium: "#848789"
+    Aluminium: "lightgray"
   },
   ArmChair: {
     Raven_black: "#000000",
@@ -72,7 +73,7 @@ const Models = {
 };
 
 export default function Home() {
-  const [loadedModel, setLoadedModel] = useState(Models.Porsche);
+  const [loadedModel, setLoadedModel] = useState(Models.Sofa);
   const [currColor, setColor] = useState(colors.Porsche.Guards_Red);
   const [currLeather, setLeather] = useState(colors.Leather.black);
 
@@ -107,7 +108,7 @@ export default function Home() {
         <Suspense fallback={<Loading />}>
           <Stage preset={"portrait"} environment={"warehouse"}>
               {loadedModel.componentName === Models.Sofa.componentName ? (
-                <SofaCobra key="sofa" {...props} carColor={currColor} leatherColor={currLeather}/>
+                <SofaNew key="sofa" {...props} carColor={currColor} leatherColor={currLeather}/>
               ) : loadedModel.componentName === Models.Porsche.componentName ? (
                 <PorscheSofa key="porsche" {...props} carColor={currColor} />
               ) : loadedModel.componentName === Models.ArmChair.componentName ? (

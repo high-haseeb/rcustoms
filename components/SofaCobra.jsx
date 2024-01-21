@@ -23,7 +23,6 @@ export function SofaCobra({ carColor, leatherColor, ...props }) {
     envMapIntensity: 3, // Adjust environment map intensity
   });
   applyProps(materials.Paint_Main, { color: carColor });
-  // applyProps(materials.Paint_Main, {map:colorMap})
   if (carColor == "#FFFFFF") {
     applyProps(materials.Stripes, { color: "#000000" });
   } else {
@@ -31,25 +30,34 @@ export function SofaCobra({ carColor, leatherColor, ...props }) {
   }
   const [material, setMaterial] = useState(false);
 
-  // const map = useTexture("/textures/Aluminium_base.jpeg");
-  // const aoMap = useTexture("/textures/Aluminium_ao.jpeg")
-  // const rough = useTexture("/textures/Aluminium_rough.jpeg")
-  // const metal = useTexture("/textures/Aluminium_metal.jpeg")
+    const aoMap = useTexture("/textures/Aluminium 5_ambientOcclusion.jpeg")
+    const map = useTexture("/textures/Aluminium 5_baseColor.jpeg")
+    // const gloss = useTexture("/textures/Aluminium 5_glossiness.jpeg")
+    // const height = useTexture("Aluminium 5_height.jpeg")
+    const metal = useTexture("/textures/Aluminium 5_metallic.jpeg")
+    const nor   = useTexture("/textures/Aluminium 5_normal.jpeg")
+  // nor.repeat.set(0.8,0.8)
+  // nor.wrapS = nor.wrapT = THREE.RepeatWrapping;
+nor.magFilter = THREE.NearestFilter;  // or THREE.LinearFilter
+nor.minFilter = THREE.NearestFilter;  // or THREE.LinearFilter
+  // nor.wrapT = 10;
+    const rough = useTexture("/textures/Aluminium 5_roughness.jpeg")
 
-  const map = useTexture("/textures/Metal_base.jpg");
-  const aoMap = useTexture("/textures/Metal_ao.jpg")
-  const rough = useTexture("/textures/Metal_rough.jpg")
-  const metal = useTexture("/textures/Metal_metal.jpg")
+  // const map = useTexture("/textures/ss.jpeg");
+  // const aoMap = useTexture("/textures/Metal_ao.jpg")
+  // const rough = useTexture("/textures/Metal_rough.jpg")
+  // const metal = useTexture("/textures/Metal_metal.jpg")
   // const nor = useTexture("/textures/Aluminium_nor.jpeg")
   // const disp = useTexture("/textures/Aluminium_disp.jpeg")
   const newBodyColor = new THREE.MeshStandardMaterial({
     color: "#848789",
-    map: map,
-    aoMap:aoMap,
-    metalnessMap:metal,
-    roughnessMap:rough,
-    // normalMap:nor,
+    // map: map,
+    // aoMap:aoMap,
+    // metalnessMap:metal,
+    // roughnessMap:rough,
+    normalMap:nor,
   });
+newBodyColor.side = THREE.DoubleSide;  // or THREE.FrontSide or THREE.BackSide
   useEffect(() => {
     if (carColor == "#848789") {
       setMaterial(true);
