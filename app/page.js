@@ -1,10 +1,9 @@
 "use client";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Stage, PresentationControls, OrbitControls } from "@react-three/drei";
+import { Stage, PresentationControl } from "@react-three/drei";
 import { LayerMaterial, Color, Depth } from "lamina";
-import React, { Suspense, lazy, useState, useRef, useEffect } from "react";
-import { Html, Float } from "@react-three/drei";
-import { SofaCobra } from "@/components/SofaCobra";
+import React, { Suspense,  useState, useRef  } from "react";
+import { Html } from "@react-three/drei";
 import { ArmChairCobra } from "@/components/ArmChairCobra";
 import { PorscheSofa } from "@/components/PorscheSofa";
 import * as THREE from "three";
