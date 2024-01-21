@@ -1,6 +1,6 @@
 "use client";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Stage, PresentationControl } from "@react-three/drei";
+import { Stage, PresentationControls } from "@react-three/drei";
 import { LayerMaterial, Color, Depth } from "lamina";
 import React, { Suspense,  useState, useRef  } from "react";
 import { Html } from "@react-three/drei";
