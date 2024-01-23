@@ -5,12 +5,8 @@ import { applyProps } from '@react-three/fiber'
 export function TableCobra({ currColor, colors, ...props }) {
   const { nodes, materials } = useGLTF('TableCobra/TableCobra.gltf')
 
-  useEffect(() => {
-    if (!colors.hasOwnProperty(currColor)) {
-      currColor = Object.values(colors)[0];
-    }
     applyProps(materials.Stripes, {color: currColor});
-  }, [currColor])
+    applyProps(materials[ 'Paint_Main_Black.002' ], {color: 'black'});
 
   return (
     <group {...props} dispose={null}>

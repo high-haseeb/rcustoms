@@ -4,12 +4,14 @@ import { Stage, PresentationControls } from "@react-three/drei";
 import { LayerMaterial, Color, Depth } from "lamina";
 import React, { Suspense,  useState, useRef  } from "react";
 import { Html } from "@react-three/drei";
+import * as THREE from "three";
 import { ArmChairCobra } from "@/components/ArmChairCobra";
 import { PorscheSofa } from "@/components/PorscheSofa";
-import * as THREE from "three";
 import { TableCobra } from "@/components/TableCobra";
 import { TablePorsche } from "@/components/TablePorsche";
-import { SofaNew } from "@/components/SofaCobranew";
+// import { SofaNew } from "@/components/SofaCobranew";
+import { SofaCobra } from "@/components/SofaCobra";
+import { Bloom, DepthOfField, EffectComposer } from "@react-three/postprocessing";
 
 const colors = {
   Leather: {
@@ -102,12 +104,16 @@ export default function Home() {
         callback={changeLeatherColor}
       />: <></>}
       <Canvas camera={{ position: [5, 0, 15], fov: 30 }} gl={{antialias: true}}>
+        <EffectComposer>
+          {/* <DepthOfField focusDistance={0} focalLength={2} bokehScale={2} height={480} /> */}
+          <Bloom luminanceThreshold={100} luminanceSmoothing={0.9} height={100} />
+        </EffectComposer>
         <directionalLight position={[0, 5, -3]} intensity={0.5} />
         <PresentationControls rotation={[0, Math.PI, 0]}>
         <Suspense fallback={<Loading />}>
           <Stage preset={"portrait"} environment={"warehouse"}>
               {loadedModel.componentName === Models.Sofa.componentName ? (
-                <SofaNew key="sofa" {...props} carColor={currColor} leatherColor={currLeather} colors={Models.Porsche.colors} />
+                <SofaCobra key="sofa" {...props} carColor={currColor} leatherColor={currLeather} colors={Models.Porsche.colors} />
               ) : loadedModel.componentName === Models.Porsche.componentName ? (
                 <PorscheSofa key="porsche" {...props} carColor={currColor} colors={Models.Porsche.colors} />
               ) : loadedModel.componentName === Models.ArmChair.componentName ? (
