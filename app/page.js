@@ -101,21 +101,21 @@ export default function Home() {
         className="flex absolute top-0 right-0 items-center justify-center text-xl font-bold"
         callback={changeLeatherColor}
       />: <></>}
-      <Canvas camera={{ position: [5, 0, 15], fov: 30 }}>
+      <Canvas camera={{ position: [5, 0, 15], fov: 30 }} gl={{antialias: true}}>
         <directionalLight position={[0, 5, -3]} intensity={0.5} />
         <PresentationControls rotation={[0, Math.PI, 0]}>
         <Suspense fallback={<Loading />}>
           <Stage preset={"portrait"} environment={"warehouse"}>
               {loadedModel.componentName === Models.Sofa.componentName ? (
-                <SofaNew key="sofa" {...props} carColor={currColor} leatherColor={currLeather}/>
+                <SofaNew key="sofa" {...props} carColor={currColor} leatherColor={currLeather} colors={Models.Porsche.colors} />
               ) : loadedModel.componentName === Models.Porsche.componentName ? (
-                <PorscheSofa key="porsche" {...props} carColor={currColor} />
+                <PorscheSofa key="porsche" {...props} carColor={currColor} colors={Models.Porsche.colors} />
               ) : loadedModel.componentName === Models.ArmChair.componentName ? (
-                <ArmChairCobra key="armchair" {...props} carColor={currColor} leatherColor={currLeather}/>
+                <ArmChairCobra key="armchair" {...props} carColor={currColor} colors={Models.ArmChair.colors} leatherColor={currLeather}/>
               ) : loadedModel.componentName === Models.PorscheTable.componentName ? (
                 <TablePorsche {...props} />
               ) : loadedModel.componentName === Models.CobraTable.componentName ? (
-                <TableCobra {...props} color={currColor}/>
+                <TableCobra {...props} currColor={currColor} colors={Models.CobraTable.colors}/>
               ) : null}
           </Stage>
         </Suspense>

@@ -1,10 +1,17 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { applyProps } from '@react-three/fiber'
 
-export function TableCobra({ color, ...props }) {
+export function TableCobra({ currColor, colors, ...props }) {
   const { nodes, materials } = useGLTF('TableCobra/TableCobra.gltf')
-  applyProps(materials.Stripes, {color: color});
+
+  useEffect(() => {
+    if (!colors.hasOwnProperty(currColor)) {
+      currColor = Object.values(colors)[0];
+    }
+    applyProps(materials.Stripes, {color: currColor});
+  }, [currColor])
+
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Blat001.geometry} material={materials.Stripes} position={[0, 0.412, -0.038]} scale={0.01} />

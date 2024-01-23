@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 
@@ -7,10 +7,10 @@ export function TablePorsche(props) {
   const glassMaterial = new THREE.MeshStandardMaterial({
     color: 0xffffff,
     transparent: true,
-    opacity: 0.4,
+    opacity: 0.3,
     roughness: 0.1, 
     metalness: 0.9, 
-    envMapIntensity: 3,
+    envMapIntensity: 3, // Adjust environment map intensity
   });
   return (
     <group {...props} dispose={null} >

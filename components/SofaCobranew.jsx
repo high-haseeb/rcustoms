@@ -1,36 +1,61 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { applyProps } from "@react-three/fiber";
 
 export function SofaNew({ carColor, leatherColor, ...props }) {
   const { nodes, materials } = useGLTF("SofaCobraNew/SofaCobra.gltf");
+  const stripesRef = useRef(null);
 
-  applyProps(materials.Paint_Main, { color: carColor });
+  // so the map value doesn't change when rerendering colors
+  const map = useRef(materials.Paint_Main.map)
 
-  if (carColor == "#FFFFFF") {
-    applyProps(materials.Stripes, { color: "#000000" });
-  } else {
-    applyProps(materials.Stripes, { color: "#ffffff" });
-  }
-  // let map;
- const map = useMemo(() => materials.Paint_Main.map, []);
-  // useEffect(()=>{
-  //   map = materials.Paint_Main.map;
-  //   console.log(map)
-  // },[])
-  if (carColor != "lightgray") {
-    materials.Paint_Main.map = 0;
-  } else {
-    console.log(map)
-    materials.Paint_Main.map = map;
-  }
+  useEffect(() => {
+    // apply the base body color
+    applyProps(materials.Paint_Main, { color: carColor });
 
+    // update the stripe colors
+    if (carColor == "#FFFFFF") {
+      applyProps(materials.Stripes, { color: "#000000" });
+    } else {
+      applyProps(materials.Stripes, { color: "#ffffff" });
+    }
+    if (carColor != "lightgray") {
+      materials.Paint_Main.map = 0;
+    } else {
+      console.log('todo: make an aluminum texture')
+      // materials.Paint_Main.map = map.current;
+    }
+
+  }, [carColor])
+
+  // headlight glass material 
+  const lampGlass = new THREE.MeshStandardMaterial({
+    color: 0xffffff, // white
+    transparent: true,
+    opacity: 0.4,
+    roughness: 0.1, 
+    metalness: 0.9,
+    envMapIntensity: 3
+  });
+
+  // blinker glass material
+  const blinkerGlass = new THREE.MeshStandardMaterial({
+    color: 0x880000, // red
+    transparent: true,
+    opacity: 0.8,
+    roughness: 0.1,
+    metalness: 0.9, 
+    envMapIntensity: 3,
+  });
+
+  // increase leather material roughness to make more realistic
   const newLeatherMaterial = new THREE.MeshStandardMaterial();
   Object.assign(newLeatherMaterial, materials.Leather_Sofa);
   newLeatherMaterial.roughness = 0.75;
   Object.assign(materials.Leather_Sofa, newLeatherMaterial);
   newLeatherMaterial.color.set(leatherColor);
+   
   return (
     <group {...props} dispose={null}>
       <group scale={2.228}>
@@ -49,8 +74,9 @@ export function SofaNew({ carColor, leatherColor, ...props }) {
           scale={0.449}
         />
         <mesh
+          ref={stripesRef}
           geometry={nodes.Body_pasy003.geometry}
-          material={materials.Stripes}
+          material={ materials.Stripes }
           position={[0, 0.214, -0.235]}
           rotation={[Math.PI, -0.001, Math.PI]}
           scale={0.449}
@@ -353,14 +379,14 @@ export function SofaNew({ carColor, leatherColor, ...props }) {
       <group scale={2.228}>
         <mesh
           geometry={nodes.Lampa_klosz001.geometry}
-          material={materials["Glass Sofa HEadlights.001"]}
+          material={lampGlass}
           position={[-0.365, 0.214, -0.242]}
           rotation={[Math.PI, -0.001, Math.PI]}
           scale={0.449}
         />
         <mesh
           geometry={nodes.Lampa_klosz002.geometry}
-          material={materials["Glass Sofa HEadlights.006"]}
+          material={lampGlass}
           position={[-0.365, 0.214, -0.242]}
           rotation={[Math.PI, -0.001, Math.PI]}
           scale={0.449}
@@ -369,7 +395,7 @@ export function SofaNew({ carColor, leatherColor, ...props }) {
       <group scale={2.228}>
         <mesh
           geometry={nodes.Migacz_klosz001.geometry}
-          material={materials["Glass Orange.003"]}
+          material={blinkerGlass}
           position={[-0.365, 0.133, -0.213]}
           rotation={[Math.PI, -0.001, Math.PI]}
           scale={0.449}
