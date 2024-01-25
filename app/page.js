@@ -8,10 +8,9 @@ import * as THREE from "three";
 import { ArmChairCobra } from "@/components/ArmChairCobra";
 import { PorscheSofa } from "@/components/PorscheSofa";
 import { TableCobra } from "@/components/TableCobra";
-import { TablePorsche } from "@/components/TablePorsche";
-// import { SofaNew } from "@/components/SofaCobranew";
 import { SofaCobra } from "@/components/SofaCobra";
 import { Bloom, DepthOfField, EffectComposer } from "@react-three/postprocessing";
+import { TablePorsche } from "@/components/TablePorsche";
 
 const colors = {
   Leather: {
@@ -74,7 +73,7 @@ const Models = {
 };
 
 export default function Home() {
-  const [loadedModel, setLoadedModel] = useState(Models.Sofa);
+  const [loadedModel, setLoadedModel] = useState(Models.PorscheTable);
   const [currColor, setColor] = useState(colors.Porsche.Guards_Red);
   const [currLeather, setLeather] = useState(colors.Leather.black);
 
@@ -104,6 +103,7 @@ export default function Home() {
         callback={changeLeatherColor}
       />: <></>}
       <Canvas camera={{ position: [5, 0, 15], fov: 30 }} gl={{antialias: true}}>
+        <ambientLight intensity={1}/>
         <EffectComposer>
           {/* <DepthOfField focusDistance={0} focalLength={2} bokehScale={2} height={480} /> */}
           <Bloom luminanceThreshold={100} luminanceSmoothing={0.9} height={100} />
