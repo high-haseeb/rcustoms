@@ -6,8 +6,8 @@ import { MeshStandardMaterial } from 'three'
 export function SofaCobra({ carColor, leatherColor, ...props }) {
   const { nodes, materials } = useGLTF('SofaCobraNew/SofaCobra.gltf')
   console.log(materials.Paint_Main)
-  const [isTextured, setIsTextured]  = useState(false);
-   
+  const [isTextured, setIsTextured] = useState(false);
+
   useEffect(() => {
     if (carColor == "#FFFFFF") {
       applyProps(materials.Stripes, { color: "#000000" });
@@ -19,7 +19,7 @@ export function SofaCobra({ carColor, leatherColor, ...props }) {
       setIsTextured(false);
     } else {
       setIsTextured(true);
-  }
+    }
 
   }, [carColor])
 
@@ -28,7 +28,7 @@ export function SofaCobra({ carColor, leatherColor, ...props }) {
     color: 0xffffff, // white
     transparent: true,
     opacity: 0.4,
-    roughness: 0.1, 
+    roughness: 0.1,
     metalness: 0.9,
     envMapIntensity: 3
   });
@@ -39,18 +39,16 @@ export function SofaCobra({ carColor, leatherColor, ...props }) {
     transparent: true,
     opacity: 0.8,
     roughness: 0.1,
-    metalness: 0.9, 
+    metalness: 0.9,
     envMapIntensity: 3,
   });
 
   // increase leather material roughness to make more realistic
   const newLeatherMaterial = new MeshStandardMaterial();
-  useEffect(() => {
-    Object.assign(newLeatherMaterial, materials.Leather_Sofa);
-    newLeatherMaterial.roughness = 0.75;
-    Object.assign(materials.Leather_Sofa, newLeatherMaterial);
-    newLeatherMaterial.color.set(leatherColor);
-  },[])
+  Object.assign(newLeatherMaterial, materials.Leather_Sofa);
+  newLeatherMaterial.roughness = 0.75;
+  Object.assign(materials.Leather_Sofa, newLeatherMaterial);
+  newLeatherMaterial.color.set(leatherColor);
 
   return (
     <group {...props} dispose={null}>
