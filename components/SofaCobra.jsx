@@ -5,24 +5,20 @@ import { MeshStandardMaterial } from 'three'
 
 export function SofaCobra({ carColor, leatherColor, ...props }) {
   const { nodes, materials } = useGLTF('SofaCobraNew/SofaCobra.gltf')
+  console.log(materials.Paint_Main)
   const [isTextured, setIsTextured]  = useState(false);
-  const baseColor = materials['Paint_Main.001'].clone();
    
   useEffect(() => {
-    baseColor.map = null;
-    // update the stripe colors
     if (carColor == "#FFFFFF") {
       applyProps(materials.Stripes, { color: "#000000" });
     } else {
       applyProps(materials.Stripes, { color: "#ffffff" });
     }
     if (carColor !== "lightgray") {
-      applyProps(baseColor, { color: carColor });
-      applyProps(materials['Paint_Main.001'], {  clearcoat:1 })
-      setIsTextured(false)
+      applyProps(materials.Paint_Main, { color: carColor });
+      setIsTextured(false);
     } else {
-      applyProps(materials['Paint_Main.001'], { clearcoat:0.2 })
-      setIsTextured(true)
+      setIsTextured(true);
   }
 
   }, [carColor])
@@ -53,12 +49,13 @@ export function SofaCobra({ carColor, leatherColor, ...props }) {
   newLeatherMaterial.roughness = 0.75;
   Object.assign(materials.Leather_Sofa, newLeatherMaterial);
   newLeatherMaterial.color.set(leatherColor);
+
   return (
     <group {...props} dispose={null}>
       <group scale={2.228}>
         <mesh geometry={nodes.Blackbody001.geometry} material={materials.Flat_Black} position={[0, 0.12, -0.141]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
-        <mesh geometry={nodes.Body001.geometry} material={isTextured ? materials['Paint_Main.001'] : baseColor} position={[0, 0.214, -0.235]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
-        <mesh geometry={nodes.Body_pasy003.geometry} material={isTextured ? materials['Paint_Main.001'] : materials.Stripes} position={[0, 0.214, -0.235]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
+        <mesh geometry={nodes.Body001.geometry} material={isTextured ? materials.Aluminum : materials.Paint_Main} position={[0, 0.214, -0.235]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
+        <mesh geometry={nodes.Body_pasy003.geometry} material={isTextured ? materials.Aluminum : materials.Stripes} position={[0, 0.214, -0.235]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
         <mesh geometry={nodes.Cylinder001002.geometry} material={materials.Chrome_dark} position={[-0.353, 0, -0.141]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
         <mesh geometry={nodes.Cylinder002002.geometry} material={materials.Chrome_dark} position={[-0.353, 0, -0.141]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
         <mesh geometry={nodes.Cylinder003002.geometry} material={materials.Chrome_dark} position={[-0.353, 0, -0.141]} rotation={[Math.PI, -0.001, Math.PI]} scale={0.449} />
@@ -117,4 +114,4 @@ export function SofaCobra({ carColor, leatherColor, ...props }) {
   )
 }
 
-useGLTF.preload('SofaCobraNew/SofaCobra.gltf')
+useGLTF.preload('/SofaCobra.gltf')

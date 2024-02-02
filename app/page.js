@@ -73,7 +73,7 @@ const Models = {
 };
 
 export default function Home() {
-  const [loadedModel, setLoadedModel] = useState(Models.PorscheTable);
+  const [loadedModel, setLoadedModel] = useState(Models.Sofa);
   const [currColor, setColor] = useState(colors.Porsche.Guards_Red);
   const [currLeather, setLeather] = useState(colors.Leather.black);
 
@@ -85,7 +85,6 @@ export default function Home() {
     scale: 1.69,
     position: [0, 0, 0],
   };
-  const ref = useRef();
   return (
     <div className="flex w-screen h-screen">
       <div className="flex absolute top-0 left-0 w-screen items-center justify-center text-xl font-bold z-50">
