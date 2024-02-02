@@ -45,10 +45,12 @@ export function SofaCobra({ carColor, leatherColor, ...props }) {
 
   // increase leather material roughness to make more realistic
   const newLeatherMaterial = new MeshStandardMaterial();
-  Object.assign(newLeatherMaterial, materials.Leather_Sofa);
-  newLeatherMaterial.roughness = 0.75;
-  Object.assign(materials.Leather_Sofa, newLeatherMaterial);
-  newLeatherMaterial.color.set(leatherColor);
+  useEffect(() => {
+    Object.assign(newLeatherMaterial, materials.Leather_Sofa);
+    newLeatherMaterial.roughness = 0.75;
+    Object.assign(materials.Leather_Sofa, newLeatherMaterial);
+    newLeatherMaterial.color.set(leatherColor);
+  },[])
 
   return (
     <group {...props} dispose={null}>
